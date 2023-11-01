@@ -6,6 +6,7 @@ import DataNotFound from "../../../../components/DataNotFound";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import * as FaIcon from "react-icons/fa";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import {MapsView} from "../../../../components/MapsView/MapsView";
 
 export default function CentrosMedicos() {
 
@@ -15,6 +16,39 @@ export default function CentrosMedicos() {
 
     const [institutions, setInstitutions] = useState([]);
     const [searchInstitutions, setSearchInstitutions] = useState([]);
+
+    const p = usePatient()
+
+    const [ruta, setRuta] = useState(null);
+    useEffect(async () => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 500);
+    }, [loading])
+
+    const rutaMasCorta = async () =>{
+        let patientId = p.patient.id;
+        let institucionId = institution.id;
+        let response;
+
+        try {
+            response = await getRutaMasCorta(patientId, institucionId);
+            setRuta(response);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const getRutaMasCorta = useCallback((patientId, institucionId)=>{
+        return getShortestRoute(patientId, institucionId)
+            .then((response) => {
+            return response;
+            })
+            .catch((error) => {
+            console.error(error);
+            throw error;
+            });
+    }, [])
 
     const getInstitutions = useCallback(
         () => {
@@ -114,6 +148,13 @@ export default function CentrosMedicos() {
                                     </blockquote>
                                 </Card.Body>
                             </Card>
+                            <button onClick={rutaMasCorta}>¿Cómo llego?</button>
+                            <MapsView
+                                latitud={ins.latitud}
+                                longitud={ins.longitud}
+                                descripcion={ins.direccion}
+                                coordinates={{ruta}}
+                            />
                         </Col>
                     )
                 })}
