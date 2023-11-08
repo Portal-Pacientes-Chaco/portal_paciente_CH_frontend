@@ -62,6 +62,18 @@ export let UPDATE_HEADER = () => {
   return header;
 };
 
+export let UPDATE_HEADER_STUDIES = () => {
+  const jwt = localStorage.getItem("tokenUser")
+    ? JSON.parse(localStorage.getItem("tokenUser"))
+    : null;
+  let header = {
+    //"Content-type": "multipart/form-data",
+    "Authorization": `Bearer ${jwt}`,
+    //"accept": "application/json",
+  };
+  return header;
+};
+
 export let TGD_HEADER = (tgdToken) => {
   let header = {
     "Authorization": `Bearer ${tgdToken}`,
@@ -144,6 +156,16 @@ export const API_ENDPOINT_CREATEUSERADMIN = `${baseUrl}/createuseradmin`;
 
 export const API_ENDPOINT_DELETEUSERADMIN = (query) => {
   let url = `${baseUrl}/deleteuseradmin?${query}`;
+  return url;
+}
+
+export const API_ENDPOINT_ASSIGN_INSTITUTIONS = (query) => {
+  let url = `${baseUrl}/assign_institutions?${query}`;
+  return url;
+}
+
+export const API_ENDPOINT_ONOFFADMIN = (query) => {
+  let url = `${baseUrl}/onoffadmin?${query}`;
   return url;
 }
 
@@ -345,3 +367,53 @@ export const INDICADOR_GRUPO_FAMILIAR = () => {
   let url = `${environment.baseURL}/indicador_grupo_familiar`;
   return url;
 };
+// ESTUDIOS 
+export const API_ENDPOINT_POST_ESTUDIO= (query) => {
+  return `${baseUrl}/upload-study?${query}`;
+}
+
+export const API_ENDPOINT_GET_STUDY_TYPES = () => {
+  return `${baseUrl}/study-types`;
+}
+
+export const API_ENDPOINT_GET_STUDY_BY_ID = (query) => {
+  return `${baseUrl}/study/${query}/file`;
+}
+
+export const API_ENDPOINT_GET_PERSON_STUDIES = (query) => {
+  return `${baseUrl}/studies?${query}`;
+}
+
+export const API_ENDPOINT_DELETESTUDY = (query) => {
+  let url = `${baseUrl}/delete-study?${query}`;
+  return url
+}
+
+// INSTITUTIONS ---------------------------------------
+export const API_ENDPOINT_INSTITUTIONS_ALL = `${baseUrl}/getinstitutions`;
+export const API_ENDPOINT_CREATE_INSTITUTION = `${baseUrl}/createinstitution`;
+export const API_ENDPOINT_UPDATE_INSTITUTION = `${baseUrl}/updateinstitution`;
+export const API_ENDPOINT_STATUS_INSTITUTION = `${baseUrl}/onoffinstitution`;
+export const API_ENDPOINT_INSTITUTIONS_BY_ID = (query) => {
+  return `${baseUrl}/getinstitutionsbyid?${query}`;
+}
+export const API_ENDPOINT_SHORTEST_ROUTE= (query) => {
+  return `${baseUrl}/shortest-route?${query}`;
+}
+export const API_ENDPOINT_ESPECIALIDADES_ALL = `${baseUrl}/especialidades`;
+export const API_ENDPOINT_ESPECIALIDADES_BY_ID = (especialidad) => {
+  return `${baseUrl}/especialidades/${especialidad}`;
+}
+export const API_ENDPOINT_SERVICIOS_ALL = `${baseUrl}/servicios`;
+export const API_ENDPOINT_SERVICIOS_BY_ID = (servicio) => {
+  return `${baseUrl}/servicios/${servicio}`;
+}
+export const API_ENDPOINT_ALL_PROVINCIAS = () => {
+  return `${baseUrl}/get_all_provincias`;
+}
+export const API_ENDPOINT_ALL_DEPARTAMENTOS_FROM = (query) => {
+  return `${baseUrl}/get_all_departamentos_from?${query}`;
+}
+export const API_ENDPOINT_ALL_LOCALIDADES_FROM = (query) => {
+  return `${baseUrl}/get_all_localidades_from?${query}`;
+}
