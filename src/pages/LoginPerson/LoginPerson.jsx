@@ -23,7 +23,6 @@ function LoginPerson() {
     // const [password, setPassword] = useState(JSON.parse(localStorage.getItem("loginDataPassword")) || "");
     // const [saveData, setSaveData] = useState(JSON.parse(localStorage.getItem("loginDataEmail")) ? true : false);
     // const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-
     const auth = useAuth();
     const history = useHistory();
     const location = useLocation();
